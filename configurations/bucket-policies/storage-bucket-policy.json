@@ -1,0 +1,105 @@
+{
+  "Version": "2012-10-17",
+  "Id": "XYZCorpStorageBucketPolicy",
+  "Statement": [
+    {
+      "Sid": "DenyInsecureConnections",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "s3:*",
+      "Resource": [
+        "arn:aws:s3:::xyz-corp-storage-[YOUR-SUFFIX]",
+        "arn:aws:s3:::xyz-corp-storage-[YOUR-SUFFIX]/*"
+      ],
+      "Condition": {
+        "Bool": {
+          "aws:SecureTransport": "false"
+        }
+      }
+    },
+    {
+      "Sid": "AllowAuthorizedUsersFullAccess",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": [
+          "arn:aws:iam::[YOUR-ACCOUNT-ID]:user/xyz-corp-admin",
+          "arn:aws:iam::[YOUR-ACCOUNT-ID]:role/XYZCorpS3Role"
+        ]
+      },
+      "Action": [
+        "s3:GetObject",
+        "s3:GetObjectVersion",
+        "s3:PutObject",
+        "s3:DeleteObject",
+        "s3:DeleteObjectVersion",
+        "s3:ListBucket",
+        "s3:ListBucketVersions",
+        "s3:GetBucketLocation",
+        "s3:GetBucketVersioning"
+      ],
+      "Resource": [
+        "arn:aws:s3:::xyz-corp-storage-[YOUR-SUFFIX]",
+        "arn:aws:s3:::xyz-corp-storage-[YOUR-SUFFIX]/*"
+      ]
+    },
+    {
+      "Sid": "AllowReadOnlyAccessForBackupRole",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::[YOUR-ACCOUNT-ID]:role/XYZCorpBackupRole"
+      },
+      "Action": [
+        "s3:GetObject",
+        "s3:GetObjectVersion",
+        "s3:ListBucket",
+        "s3:ListBucketVersions"
+      ],
+      "Resource": [
+        "arn:aws:s3:::xyz-corp-storage-[YOUR-SUFFIX]",
+        "arn:aws:s3:::xyz-corp-storage-[YOUR-SUFFIX]/*"
+      ]
+    },
+    {
+      "Sid": "DenyPublicAccess",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "s3:*",
+      "Resource": [
+        "arn:aws:s3:::xyz-corp-storage-[YOUR-SUFFIX]",
+        "arn:aws:s3:::xyz-corp-storage-[YOUR-SUFFIX]/*"
+      ],
+      "Condition": {
+        "StringNotEquals": {
+          "aws:PrincipalServiceName": [
+            "s3.amazonaws.com"
+          ]
+        },
+        "StringNotLike": {
+          "aws:userid": [
+            "[YOUR-ACCOUNT-ID]:*",
+            "AIDACKCEVSQ6C2EXAMPLE"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "RequireMFAForDeleteOperations",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": [
+        "s3:DeleteObject",
+        "s3:DeleteObjectVersion",
+        "s3:DeleteBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::xyz-corp-storage-[YOUR-SUFFIX]",
+        "arn:aws:s3:::xyz-corp-storage-[YOUR-SUFFIX]/*"
+      ],
+      "Condition": {
+        "BoolIfExists": {
+          "aws:MultiFactorAuthPresent": "false"
+        }
+      }
+    }
+  ]
+}

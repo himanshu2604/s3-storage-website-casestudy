@@ -1,0 +1,120 @@
+{
+  "BucketEncryption": {
+    "Rules": [
+      {
+        "ApplyServerSideEncryptionByDefault": {
+          "SSEAlgorithm": "AES256"
+        },
+        "BucketKeyEnabled": true
+      }
+    ]
+  },
+  "StorageBucketEncryption": {
+    "BucketName": "xyz-corp-storage-[suffix]",
+    "EncryptionConfiguration": {
+      "Rules": [
+        {
+          "ApplyServerSideEncryptionByDefault": {
+            "SSEAlgorithm": "aws:kms",
+            "KMSMasterKeyID": "arn:aws:kms:us-east-1:[account-id]:key/xyz-corp-s3-key"
+          },
+          "BucketKeyEnabled": true
+        }
+      ]
+    },
+    "PublicAccessBlockConfiguration": {
+      "BlockPublicAcls": true,
+      "IgnorePublicAcls": true,
+      "BlockPublicPolicy": true,
+      "RestrictPublicBuckets": true
+    }
+  },
+  "WebsiteBucketEncryption": {
+    "BucketName": "your-domain.com",
+    "EncryptionConfiguration": {
+      "Rules": [
+        {
+          "ApplyServerSideEncryptionByDefault": {
+            "SSEAlgorithm": "AES256"
+          },
+          "BucketKeyEnabled": false
+        }
+      ]
+    },
+    "PublicAccessBlockConfiguration": {
+      "BlockPublicAcls": false,
+      "IgnorePublicAcls": false,
+      "BlockPublicPolicy": false,
+      "RestrictPublicBuckets": false
+    }
+  },
+  "KMSKeyPolicy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "EnableRootAccess",
+        "Effect": "Allow",
+        "Principal": {
+          "AWS": "arn:aws:iam::[account-id]:root"
+        },
+        "Action": "kms:*",
+        "Resource": "*"
+      },
+      {
+        "Sid": "AllowS3ServiceAccess",
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "s3.amazonaws.com"
+        },
+        "Action": [
+          "kms:Decrypt",
+          "kms:DescribeKey",
+          "kms:Encrypt",
+          "kms:GenerateDataKey",
+          "kms:GenerateDataKeyWithoutPlaintext",
+          "kms:ReEncryptFrom",
+          "kms:ReEncryptTo"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "kms:ViaService": "s3.us-east-1.amazonaws.com"
+          }
+        }
+      },
+      {
+        "Sid": "AllowXYZCorpUsers",
+        "Effect": "Allow",
+        "Principal": {
+          "AWS": [
+            "arn:aws:iam::[account-id]:user/xyz-corp-admin",
+            "arn:aws:iam::[account-id]:role/XYZCorpS3Role"
+          ]
+        },
+        "Action": [
+          "kms:Decrypt",
+          "kms:DescribeKey"
+        ],
+        "Resource": "*"
+      }
+    ]
+  },
+  "EncryptionInTransit": {
+    "RequireSSL": true,
+    "TLSVersion": "TLSv1.2",
+    "CipherSuites": [
+      "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+      "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+      "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384"
+    ]
+  },
+  "ComplianceSettings": {
+    "FIPS140-2": false,
+    "SOC2": true,
+    "ISO27001": true,
+    "EncryptionAtRest": true,
+    "EncryptionInTransit": true,
+    "KeyRotation": true,
+    "AuditLogging": true
+  }
+}

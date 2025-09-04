@@ -1,0 +1,183 @@
+{
+  "Rules": [
+    {
+      "ID": "XYZCorpWebsiteMainRule",
+      "Status": "Enabled",
+      "Filter": {
+        "Prefix": ""
+      },
+      "Transitions": [
+        {
+          "Days": 90,
+          "StorageClass": "STANDARD_IA"
+        },
+        {
+          "Days": 365,
+          "StorageClass": "GLACIER"
+        }
+      ],
+      "NoncurrentVersionTransitions": [
+        {
+          "NoncurrentDays": 30,
+          "StorageClass": "STANDARD_IA"
+        },
+        {
+          "NoncurrentDays": 60,
+          "StorageClass": "GLACIER"
+        }
+      ],
+      "NoncurrentVersionExpiration": {
+        "NoncurrentDays": 90
+      },
+      "AbortIncompleteMultipartUpload": {
+        "DaysAfterInitiation": 3
+      }
+    },
+    {
+      "ID": "XYZCorpWebsiteAssetsRule",
+      "Status": "Enabled",
+      "Filter": {
+        "And": {
+          "Prefix": "assets/",
+          "Tags": [
+            {
+              "Key": "ContentType",
+              "Value": "Static"
+            }
+          ]
+        }
+      },
+      "Transitions": [
+        {
+          "Days": 180,
+          "StorageClass": "STANDARD_IA"
+        },
+        {
+          "Days": 730,
+          "StorageClass": "GLACIER"
+        }
+      ],
+      "NoncurrentVersionTransitions": [
+        {
+          "NoncurrentDays": 30,
+          "StorageClass": "STANDARD_IA"
+        }
+      ],
+      "NoncurrentVersionExpiration": {
+        "NoncurrentDays": 180
+      }
+    },
+    {
+      "ID": "XYZCorpWebsiteLogsRule",
+      "Status": "Enabled",
+      "Filter": {
+        "Prefix": "access-logs/"
+      },
+      "Transitions": [
+        {
+          "Days": 30,
+          "StorageClass": "STANDARD_IA"
+        },
+        {
+          "Days": 90,
+          "StorageClass": "GLACIER"
+        }
+      ],
+      "Expiration": {
+        "Days": 365
+      },
+      "NoncurrentVersionExpiration": {
+        "NoncurrentDays": 30
+      }
+    },
+    {
+      "ID": "XYZCorpWebsiteBackupRule",
+      "Status": "Enabled",
+      "Filter": {
+        "And": {
+          "Prefix": "backups/",
+          "Tags": [
+            {
+              "Key": "Purpose",
+              "Value": "WebsiteBackup"
+            }
+          ]
+        }
+      },
+      "Transitions": [
+        {
+          "Days": 7,
+          "StorageClass": "STANDARD_IA"
+        },
+        {
+          "Days": 30,
+          "StorageClass": "GLACIER"
+        }
+      ],
+      "Expiration": {
+        "Days": 1095
+      },
+      "NoncurrentVersionExpiration": {
+        "NoncurrentDays": 90
+      }
+    },
+    {
+      "ID": "XYZCorpWebsiteTempRule",
+      "Status": "Enabled",
+      "Filter": {
+        "And": {
+          "Prefix": "temp/",
+          "Tags": [
+            {
+              "Key": "Environment",
+              "Value": "Development"
+            }
+          ]
+        }
+      },
+      "Expiration": {
+        "Days": 30
+      },
+      "NoncurrentVersionExpiration": {
+        "NoncurrentDays": 7
+      },
+      "AbortIncompleteMultipartUpload": {
+        "DaysAfterInitiation": 1
+      }
+    },
+    {
+      "ID": "XYZCorpWebsiteImageRule",
+      "Status": "Enabled",
+      "Filter": {
+        "And": {
+          "Prefix": "images/",
+          "Tags": [
+            {
+              "Key": "ContentType",
+              "Value": "Image"
+            }
+          ]
+        }
+      },
+      "Transitions": [
+        {
+          "Days": 365,
+          "StorageClass": "STANDARD_IA"
+        },
+        {
+          "Days": 1095,
+          "StorageClass": "GLACIER"
+        }
+      ],
+      "NoncurrentVersionTransitions": [
+        {
+          "NoncurrentDays": 90,
+          "StorageClass": "STANDARD_IA"
+        }
+      ],
+      "NoncurrentVersionExpiration": {
+        "NoncurrentDays": 365
+      }
+    }
+  ]
+}

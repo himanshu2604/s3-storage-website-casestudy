@@ -1,0 +1,139 @@
+{
+  "Version": "2012-10-17",
+  "Id": "XYZCorpWebsiteBucketPolicy",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::your-domain.com/*",
+      "Condition": {
+        "StringEquals": {
+          "s3:ExistingObjectTag/Environment": "Production"
+        }
+      }
+    },
+    {
+      "Sid": "DenyInsecureConnections",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "s3:*",
+      "Resource": [
+        "arn:aws:s3:::your-domain.com",
+        "arn:aws:s3:::your-domain.com/*"
+      ],
+      "Condition": {
+        "Bool": {
+          "aws:SecureTransport": "false"
+        }
+      }
+    },
+    {
+      "Sid": "AllowWebsiteAdminFullAccess",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": [
+          "arn:aws:iam::[YOUR-ACCOUNT-ID]:user/xyz-corp-web-admin",
+          "arn:aws:iam::[YOUR-ACCOUNT-ID]:role/XYZCorpWebsiteRole"
+        ]
+      },
+      "Action": [
+        "s3:GetObject",
+        "s3:GetObjectVersion",
+        "s3:PutObject",
+        "s3:PutObjectAcl",
+        "s3:DeleteObject",
+        "s3:ListBucket",
+        "s3:GetBucketLocation",
+        "s3:GetBucketWebsite",
+        "s3:PutBucketWebsite"
+      ],
+      "Resource": [
+        "arn:aws:s3:::your-domain.com",
+        "arn:aws:s3:::your-domain.com/*"
+      ]
+    },
+    {
+      "Sid": "AllowCloudFrontOriginAccessIdentity",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity [YOUR-OAI-ID]"
+      },
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::your-domain.com/*"
+    },
+    {
+      "Sid": "DenyDirectUploadWithoutEncryption",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "s3:PutObject",
+      "Resource": "arn:aws:s3:::your-domain.com/*",
+      "Condition": {
+        "StringNotEquals": {
+          "s3:x-amz-server-side-encryption": "AES256"
+        }
+      }
+    },
+    {
+      "Sid": "RestrictToSpecificIP",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "s3:*",
+      "Resource": [
+        "arn:aws:s3:::your-domain.com",
+        "arn:aws:s3:::your-domain.com/*"
+      ],
+      "Condition": {
+        "NotIpAddress": {
+          "aws:SourceIp": [
+            "203.0.113.0/24",
+            "198.51.100.0/24"
+          ]
+        },
+        "StringNotEquals": {
+          "aws:PrincipalServiceName": "s3.amazonaws.com"
+        }
+      }
+    },
+    {
+      "Sid": "AllowGetObjectForEveryone",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::your-domain.com/*"
+    },
+    {
+      "Sid": "DenyDeleteWithoutMFA",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": [
+        "s3:DeleteObject",
+        "s3:DeleteBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::your-domain.com",
+        "arn:aws:s3:::your-domain.com/*"
+      ],
+      "Condition": {
+        "BoolIfExists": {
+          "aws:MultiFactorAuthPresent": "false"
+        }
+      }
+    },
+    {
+      "Sid": "LoggingServiceAccess",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "logging.s3.amazonaws.com"
+      },
+      "Action": "s3:PutObject",
+      "Resource": "arn:aws:s3:::your-domain.com/access-logs/*",
+      "Condition": {
+        "StringEquals": {
+          "s3:x-amz-acl": "bucket-owner-full-control"
+        }
+      }
+    }
+  ]
+}

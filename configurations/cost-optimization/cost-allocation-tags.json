@@ -1,0 +1,138 @@
+{
+  "TaggingStrategy": {
+    "ProjectTags": [
+      {
+        "Key": "Project",
+        "Value": "S3-Website-CaseStudy",
+        "Description": "Main project identifier for the S3 case study"
+      },
+      {
+        "Key": "Environment",
+        "Value": "Production",
+        "Description": "Environment classification for cost allocation"
+      },
+      {
+        "Key": "Owner",
+        "Value": "Himanshu-Nehete",
+        "Description": "Resource owner for accountability"
+      },
+      {
+        "Key": "Institution",
+        "Value": "IIT-Roorkee",
+        "Description": "Academic institution for billing"
+      },
+      {
+        "Key": "Course",
+        "Value": "Cloud-Computing-Certification",
+        "Description": "Course context for educational billing"
+      },
+      {
+        "Key": "CostCenter",
+        "Value": "Infrastructure",
+        "Description": "Cost center allocation for budgeting"
+      }
+    ],
+    "TechnicalTags": [
+      {
+        "Key": "Service",
+        "Value": "S3",
+        "Description": "AWS service type for filtering"
+      },
+      {
+        "Key": "Purpose",
+        "Value": "StaticWebsiteHosting",
+        "Description": "Primary use case of the resource"
+      },
+      {
+        "Key": "Backup",
+        "Value": "Required",
+        "Description": "Backup requirement indicator"
+      },
+      {
+        "Key": "Lifecycle",
+        "Value": "75-Day-Policy",
+        "Description": "Lifecycle management policy identifier"
+      },
+      {
+        "Key": "DataClassification",
+        "Value": "Public",
+        "Description": "Data classification for security"
+      }
+    ],
+    "OperationalTags": [
+      {
+        "Key": "CreatedBy",
+        "Value": "Himanshu-Nehete",
+        "Description": "Resource creator identification"
+      },
+      {
+        "Key": "CreatedDate",
+        "Value": "2024-09-04",
+        "Description": "Resource creation date"
+      },
+      {
+        "Key": "LastModified",
+        "Value": "2024-09-04",
+        "Description": "Last modification timestamp"
+      },
+      {
+        "Key": "Monitoring",
+        "Value": "CloudWatch",
+        "Description": "Monitoring solution in use"
+      },
+      {
+        "Key": "AutoShutdown",
+        "Value": "No",
+        "Description": "Automatic shutdown configuration"
+      }
+    ]
+  },
+  "CostAllocationReports": {
+    "MonthlyReports": [
+      {
+        "ReportName": "S3-Monthly-Cost-Analysis",
+        "GroupBy": ["Project", "Environment", "Service"],
+        "Metrics": ["BlendedCost", "UnblendedCost", "UsageQuantity"],
+        "Granularity": "MONTHLY"
+      }
+    ],
+    "DailyReports": [
+      {
+        "ReportName": "S3-Daily-Usage-Report",
+        "GroupBy": ["Service", "Purpose"],
+        "Metrics": ["UsageQuantity", "BlendedCost"],
+        "Granularity": "DAILY"
+      }
+    ]
+  },
+  "BudgetCategories": {
+    "StorageCosts": {
+      "Budget": "$30.00",
+      "Tags": {
+        "Service": "S3",
+        "Purpose": "Storage"
+      }
+    },
+    "DataTransferCosts": {
+      "Budget": "$10.00",
+      "Tags": {
+        "Service": "S3",
+        "Purpose": "DataTransfer"
+      }
+    },
+    "RequestCosts": {
+      "Budget": "$5.00",
+      "Tags": {
+        "Service": "S3",
+        "Purpose": "Requests"
+      }
+    },
+    "MonitoringCosts": {
+      "Budget": "$5.00",
+      "Tags": {
+        "Service": "CloudWatch",
+        "Purpose": "Monitoring"
+      }
+    }
+  }
+}

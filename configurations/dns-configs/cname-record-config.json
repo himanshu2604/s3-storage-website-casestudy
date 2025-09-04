@@ -1,0 +1,20 @@
+{
+  "Comment": "Create CNAME record for www subdomain",
+  "Changes": [
+    {
+      "Action": "CREATE",
+      "ResourceRecordSet": {
+        "Name": "www.your-domain.com",
+        "Type": "CNAME",
+        "TTL": 300,
+        "ResourceRecords": [
+          {
+            "Value": "your-domain.com.s3-website-us-east-1.amazonaws.com"
+          }
+        ],
+        "SetIdentifier": "XYZCorp-WWW-Subdomain",
+        "Weight": 100
+      }
+    }
+  ]
+}

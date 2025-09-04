@@ -1,0 +1,46 @@
+{
+  "CallerReference": "XYZCorp-HostedZone-2024-09-04",
+  "Name": "your-domain.com",
+  "Config": {
+    "Comment": "XYZ Corporation S3 Website Hosting Domain - IIT Roorkee Case Study",
+    "PrivateZone": false
+  },
+  "HostedZoneConfig": {
+    "PrivateZone": false,
+    "Comment": "Hosted zone for XYZ Corporation S3 static website hosting with custom domain integration"
+  },
+  "DelegationSet": {
+    "CallerReference": "XYZCorp-DelegationSet-2024"
+  },
+  "Tags": [
+    {
+      "Key": "Project",
+      "Value": "S3-Website-CaseStudy"
+    },
+    {
+      "Key": "Environment",
+      "Value": "Production"
+    },
+    {
+      "Key": "Owner",
+      "Value": "Himanshu-Nehete"
+    },
+    {
+      "Key": "Institution",
+      "Value": "IIT-Roorkee"
+    },
+    {
+      "Key": "CostCenter",
+      "Value": "Infrastructure"
+    },
+    {
+      "Key": "Purpose",
+      "Value": "StaticWebsiteHosting"
+    }
+  ],
+  "ResourceRecordSetCount": 4,
+  "LinkedService": {
+    "ServicePrincipal": "s3.amazonaws.com",
+    "Description": "Linked to S3 static website hosting bucket"
+  }
+}

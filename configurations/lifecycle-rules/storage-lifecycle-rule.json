@@ -1,0 +1,164 @@
+{
+  "Rules": [
+    {
+      "ID": "XYZCorpStorageLifecycleRule",
+      "Status": "Enabled",
+      "Filter": {
+        "Prefix": ""
+      },
+      "Transitions": [
+        {
+          "Days": 30,
+          "StorageClass": "STANDARD_IA"
+        },
+        {
+          "Days": 60,
+          "StorageClass": "GLACIER"
+        },
+        {
+          "Days": 90,
+          "StorageClass": "DEEP_ARCHIVE"
+        }
+      ],
+      "Expiration": {
+        "Days": 2555
+      },
+      "NoncurrentVersionTransitions": [
+        {
+          "NoncurrentDays": 30,
+          "StorageClass": "STANDARD_IA"
+        },
+        {
+          "NoncurrentDays": 60,
+          "StorageClass": "GLACIER"
+        }
+      ],
+      "NoncurrentVersionExpiration": {
+        "NoncurrentDays": 75
+      },
+      "AbortIncompleteMultipartUpload": {
+        "DaysAfterInitiation": 7
+      }
+    },
+    {
+      "ID": "XYZCorpStorageArchiveRule",
+      "Status": "Enabled",
+      "Filter": {
+        "And": {
+          "Prefix": "archives/",
+          "Tags": [
+            {
+              "Key": "DataType",
+              "Value": "Archive"
+            }
+          ]
+        }
+      },
+      "Transitions": [
+        {
+          "Days": 1,
+          "StorageClass": "GLACIER"
+        },
+        {
+          "Days": 30,
+          "StorageClass": "DEEP_ARCHIVE"
+        }
+      ],
+      "Expiration": {
+        "Days": 3650
+      }
+    },
+    {
+      "ID": "XYZCorpStorageLogRule",
+      "Status": "Enabled",
+      "Filter": {
+        "Prefix": "logs/"
+      },
+      "Transitions": [
+        {
+          "Days": 7,
+          "StorageClass": "STANDARD_IA"
+        },
+        {
+          "Days": 30,
+          "StorageClass": "GLACIER"
+        }
+      ],
+      "Expiration": {
+        "Days": 90
+      },
+      "NoncurrentVersionExpiration": {
+        "NoncurrentDays": 30
+      }
+    },
+    {
+      "ID": "XYZCorpStorageBackupRule",
+      "Status": "Enabled",
+      "Filter": {
+        "And": {
+          "Prefix": "backups/",
+          "Tags": [
+            {
+              "Key": "Purpose",
+              "Value": "Backup"
+            }
+          ]
+        }
+      },
+      "Transitions": [
+        {
+          "Days": 90,
+          "StorageClass": "STANDARD_IA"
+        },
+        {
+          "Days": 180,
+          "StorageClass": "GLACIER"
+        },
+        {
+          "Days": 365,
+          "StorageClass": "DEEP_ARCHIVE"
+        }
+      },
+      "Expiration": {
+        "Days": 2555
+      },
+      "NoncurrentVersionTransitions": [
+        {
+          "NoncurrentDays": 30,
+          "StorageClass": "STANDARD_IA"
+        },
+        {
+          "NoncurrentDays": 90,
+          "StorageClass": "GLACIER"
+        }
+      ],
+      "NoncurrentVersionExpiration": {
+        "NoncurrentDays": 365
+      }
+    },
+    {
+      "ID": "XYZCorpStorageCleanupRule",
+      "Status": "Enabled",
+      "Filter": {
+        "And": {
+          "Prefix": "temp/",
+          "Tags": [
+            {
+              "Key": "Environment",
+              "Value": "Temporary"
+            }
+          ]
+        }
+      },
+      "Expiration": {
+        "Days": 7
+      },
+      "NoncurrentVersionExpiration": {
+        "NoncurrentDays": 1
+      },
+      "AbortIncompleteMultipartUpload": {
+        "DaysAfterInitiation": 1
+      }
+    }
+  ]
+}

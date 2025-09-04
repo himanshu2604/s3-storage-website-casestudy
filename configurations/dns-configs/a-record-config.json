@@ -1,0 +1,19 @@
+{
+  "Comment": "Create A record for root domain",
+  "Changes": [
+    {
+      "Action": "CREATE",
+      "ResourceRecordSet": {
+        "Name": "your-domain.com",
+        "Type": "A",
+        "AliasTarget": {
+          "DNSName": "s3-website-us-east-1.amazonaws.com",
+          "EvaluateTargetHealth": false,
+          "HostedZoneId": "Z3AQBSTGFYJSTF"
+        },
+        "SetIdentifier": "XYZCorp-Root-Domain",
+        "Weight": 100
+      }
+    }
+  ]
+}
