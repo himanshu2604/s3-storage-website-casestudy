@@ -55,7 +55,7 @@ While this case study demonstrates hands-on AWS Console implementation for learn
 ```
 s3-storage-website-casestudy/
 ├── 📋 documentation/
-│   ├── case-study.pdf                   # Complete case study document
+│   ├── case-study.md                   # Complete case study document
 │   ├── implementation-guide.md          # Step-by-step deployment guide
 │   ├── Architecture.png                 # Main Architecture of the Project
 │   └── s3-best-practices.md            # S3 optimization strategies
