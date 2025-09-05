@@ -158,7 +158,7 @@ This project demonstrates practical experience with:
 
 ## 📚 Documentation
 
-- **[Complete Case Study](documentation/case-study.pdf)** - Full technical analysis
+- **[Complete Case Study](documentation/case-study.md)** - Full technical analysis
 - **[Implementation Guide](documentation/implementation-guide.md)** - Step-by-step instructions
 - **[Architecture Diagrams](architecture/)** - Visual system design
 - **[Website Files](website-files/)** - Ready-to-deploy web content
