@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S3 Storage Website - Case Study</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #232F3E, #FF9900);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        main {
+            padding: 3rem 0;
+        }
+
+        .hero-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            color: #232F3E;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .cta-section {
+            background: #232F3E;
+            color: white;
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #FF9900;
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #e88700;
+        }
+
+        footer {
+            background: #232F3E;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: #28a745;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .hero-section {
+                padding: 2rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>S3 Storage Website</h1>
+            <p class="subtitle">Professional Cloud Storage Case Study</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="hero-section">
+                <h2>Welcome to Our S3 Storage Solution</h2>
+                <p>This website demonstrates a professional implementation of Amazon S3 for static website hosting, showcasing scalable, secure, and cost-effective cloud storage solutions.</p>
+                <p><span class="status-indicator"></span>Website Status: Online and Operational</p>
+            </section>
+
+            <section class="features">
+                <div class="feature-card">
+                    <h3>🚀 High Performance</h3>
+                    <p>Leveraging Amazon S3's global infrastructure to deliver content with low latency and high availability worldwide.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🔒 Secure Storage</h3>
+                    <p>Built-in security features including encryption, access controls, and compliance with industry standards.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>💰 Cost Effective</h3>
+                    <p>Pay only for what you use with S3's flexible pricing model, making it ideal for projects of any size.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>📈 Scalable Solution</h3>
+                    <p>Automatically scales to handle growing storage needs without infrastructure management overhead.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🔄 Version Control</h3>
+                    <p>Built-in versioning capabilities ensure your data is protected and easily recoverable when needed.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>📊 Analytics Ready</h3>
+                    <p>Integrated logging and monitoring capabilities provide insights into usage patterns and performance metrics.</p>
+                </div>
+            </section>
+
+            <section class="cta-section">
+                <h2>Ready to Implement S3 Storage?</h2>
+                <p>This case study demonstrates the practical implementation of Amazon S3 for static website hosting with professional-grade features and performance.</p>
+                <a href="https://github.com/himanshu2604/s3-storage-website-casestudy.git" target="_blank" class="cta-button">View on GitHub</a>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 S3 Storage Case Study. Built with Amazon Web Services.</p>
+            <p>Hosted on Amazon S3 with CloudFront CDN</p>
+        </div>
+    </footer>
+</body>
+</html>
