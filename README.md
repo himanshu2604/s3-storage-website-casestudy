@@ -160,7 +160,7 @@ This project demonstrates practical experience with:
 
 - **[Complete Case Study](documentation/case-study.md)** - Full technical analysis
 - **[Implementation Guide](documentation/implementation-guide.md)** - Step-by-step instructions
-- **[Architecture Diagrams](documentation/architecture.png)** - Visual system design
+- **[Architecture Diagrams](documentation/Architecture.png)** - Visual system design
 - **[Website Files](website-files/)** - Ready-to-deploy web content
 - **[Configuration Templates](configurations/)** - Reusable configurations
 - **[Test Results](testing/)** - Detailed validation reports
