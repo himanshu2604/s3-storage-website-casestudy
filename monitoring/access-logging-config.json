@@ -1,0 +1,68 @@
+{
+  "AccessLogging": {
+    "Description": "Configuration for S3 access logging to monitor requests and usage patterns",
+    "LoggingBucket": {
+      "BucketName": "s3-access-logs-bucket",
+      "Region": "us-east-1",
+      "Purpose": "Dedicated bucket for storing S3 access logs"
+    },
+    "SourceBuckets": [
+      {
+        "BucketName": "website-hosting-bucket",
+        "LogPrefix": "website-logs/",
+        "LogFormat": "Standard S3 Access Logs"
+      },
+      {
+        "BucketName": "storage-bucket",
+        "LogPrefix": "storage-logs/",
+        "LogFormat": "Standard S3 Access Logs"
+      }
+    ],
+    "LogFormat": {
+      "Fields": [
+        "Bucket Owner",
+        "Bucket Name",
+        "Request DateTime",
+        "Remote IP",
+        "Requester",
+        "Request ID",
+        "Operation",
+        "Key",
+        "Request-URI",
+        "HTTP Status",
+        "Error Code",
+        "Bytes Sent",
+        "Object Size",
+        "Total Time",
+        "Turn-Around Time",
+        "Referer",
+        "User-Agent",
+        "Version Id",
+        "Host Id",
+        "Signature Version",
+        "Cipher Suite",
+        "Authentication Type",
+        "Host Header",
+        "TLS Version"
+      ]
+    },
+    "RetentionPolicy": {
+      "LifecycleRule": "Move logs to IA after 30 days, delete after 365 days",
+      "Purpose": "Cost optimization for log storage"
+    },
+    "MonitoringUseCase": [
+      "Track request patterns and peak usage times",
+      "Identify popular content and access patterns",
+      "Monitor for suspicious or unauthorized access",
+      "Analyze error rates and failed requests",
+      "Generate usage reports for cost optimization"
+    ]
+  },
+  "Implementation": {
+    "CLI_Commands": [
+      "aws s3api put-bucket-logging --bucket website-hosting-bucket --bucket-logging-status file://logging-config.json",
+      "aws s3api get-bucket-logging --bucket website-hosting-bucket"
+    ],
+    "Notes": "Ensure logging bucket has appropriate permissions and is in the same region"
+  }
+}

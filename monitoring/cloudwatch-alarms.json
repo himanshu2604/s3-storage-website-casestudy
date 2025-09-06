@@ -1,0 +1,83 @@
+{
+  "CloudWatchAlarms": {
+    "S3StorageAlarm": {
+      "AlarmName": "S3-Storage-High-Usage",
+      "AlarmDescription": "Alert when S3 storage exceeds threshold",
+      "MetricName": "BucketSizeBytes",
+      "Namespace": "AWS/S3",
+      "Statistic": "Average",
+      "Period": 86400,
+      "EvaluationPeriods": 1,
+      "Threshold": 5368709120,
+      "ComparisonOperator": "GreaterThanThreshold",
+      "Dimensions": [
+        {
+          "Name": "BucketName",
+          "Value": "your-s3-bucket-name"
+        },
+        {
+          "Name": "StorageType",
+          "Value": "StandardStorage"
+        }
+      ],
+      "AlarmActions": [
+        "arn:aws:sns:us-east-1:123456789012:s3-alerts"
+      ]
+    },
+    "S3RequestsAlarm": {
+      "AlarmName": "S3-High-Request-Rate",
+      "AlarmDescription": "Alert on unusually high request rates",
+      "MetricName": "NumberOfObjects",
+      "Namespace": "AWS/S3",
+      "Statistic": "Sum",
+      "Period": 300,
+      "EvaluationPeriods": 2,
+      "Threshold": 10000,
+      "ComparisonOperator": "GreaterThanThreshold",
+      "Dimensions": [
+        {
+          "Name": "BucketName",
+          "Value": "your-s3-bucket-name"
+        }
+      ],
+      "AlarmActions": [
+        "arn:aws:sns:us-east-1:123456789012:s3-alerts"
+      ]
+    },
+    "S3ErrorRateAlarm": {
+      "AlarmName": "S3-High-Error-Rate",
+      "AlarmDescription": "Alert on high 4xx/5xx error rates",
+      "MetricName": "4xxErrors",
+      "Namespace": "AWS/S3",
+      "Statistic": "Sum",
+      "Period": 300,
+      "EvaluationPeriods": 2,
+      "Threshold": 50,
+      "ComparisonOperator": "GreaterThanThreshold",
+      "Dimensions": [
+        {
+          "Name": "BucketName",
+          "Value": "your-s3-bucket-name"
+        }
+      ],
+      "AlarmActions": [
+        "arn:aws:sns:us-east-1:123456789012:s3-alerts"
+      ]
+    }
+  },
+  "SNSConfiguration": {
+    "TopicName": "s3-alerts",
+    "DisplayName": "S3 Monitoring Alerts",
+    "Subscriptions": [
+      {
+        "Protocol": "email",
+        "Endpoint": "admin@yourdomain.com"
+      }
+    ]
+  },
+  "Notes": {
+    "Setup": "Replace 'your-s3-bucket-name' with actual bucket name",
+    "Thresholds": "Adjust thresholds based on your usage patterns",
+    "Regions": "Update ARNs with correct region and account ID"
+  }
+}

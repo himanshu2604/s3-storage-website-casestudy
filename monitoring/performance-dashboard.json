@@ -1,0 +1,125 @@
+{
+  "CloudWatchDashboard": {
+    "DashboardName": "S3-Performance-Monitoring",
+    "Description": "Monitor S3 bucket performance, costs, and usage patterns",
+    "RefreshInterval": "1 minute",
+    "Widgets": [
+      {
+        "Type": "LineChart",
+        "Title": "Storage Usage Over Time",
+        "Metrics": [
+          {
+            "MetricName": "BucketSizeBytes",
+            "Namespace": "AWS/S3",
+            "Dimensions": {
+              "BucketName": "website-hosting-bucket",
+              "StorageType": "StandardStorage"
+            },
+            "Statistic": "Average",
+            "Period": 86400
+          }
+        ],
+        "TimeRange": "Last 30 days"
+      },
+      {
+        "Type": "Number",
+        "Title": "Total Objects",
+        "Metrics": [
+          {
+            "MetricName": "NumberOfObjects",
+            "Namespace": "AWS/S3",
+            "Dimensions": {
+              "BucketName": "website-hosting-bucket",
+              "StorageType": "AllStorageTypes"
+            },
+            "Statistic": "Average"
+          }
+        ]
+      },
+      {
+        "Type": "LineChart",
+        "Title": "Request Rate",
+        "Metrics": [
+          {
+            "MetricName": "AllRequests",
+            "Namespace": "AWS/S3",
+            "Dimensions": {
+              "BucketName": "website-hosting-bucket"
+            },
+            "Statistic": "Sum",
+            "Period": 300
+          }
+        ],
+        "TimeRange": "Last 24 hours"
+      },
+      {
+        "Type": "LineChart",
+        "Title": "Error Rates",
+        "Metrics": [
+          {
+            "MetricName": "4xxErrors",
+            "Namespace": "AWS/S3",
+            "Dimensions": {
+              "BucketName": "website-hosting-bucket"
+            },
+            "Statistic": "Sum",
+            "Period": 300,
+            "Color": "Orange"
+          },
+          {
+            "MetricName": "5xxErrors",
+            "Namespace": "AWS/S3",
+            "Dimensions": {
+              "BucketName": "website-hosting-bucket"
+            },
+            "Statistic": "Sum",
+            "Period": 300,
+            "Color": "Red"
+          }
+        ],
+        "TimeRange": "Last 24 hours"
+      },
+      {
+        "Type": "Number",
+        "Title": "Data Transfer (GB)",
+        "Metrics": [
+          {
+            "MetricName": "BytesDownloaded",
+            "Namespace": "AWS/S3",
+            "Dimensions": {
+              "BucketName": "website-hosting-bucket"
+            },
+            "Statistic": "Sum",
+            "Math": "DIVIDE(m1, 1073741824)"
+          }
+        ]
+      }
+    ],
+    "AlarmIntegration": {
+      "DisplayAlarms": true,
+      "AlarmStates": ["ALARM", "INSUFFICIENT_DATA"]
+    }
+  },
+  "CustomMetrics": {
+    "WebsiteAvailability": {
+      "Description": "Custom metric to track website uptime",
+      "MetricName": "WebsiteUptime",
+      "Namespace": "Custom/S3Website",
+      "Unit": "Percent",
+      "MonitoringScript": "scripts/check-website-availability.sh"
+    }
+  },
+  "ReportingSchedule": {
+    "DailyReport": {
+      "Time": "09:00 UTC",
+      "Recipients": ["admin@yourdomain.com"],
+      "Metrics": ["Storage usage", "Request count", "Error rate"]
+    },
+    "WeeklyReport": {
+      "Day": "Monday",
+      "Time": "09:00 UTC",
+      "Recipients": ["admin@yourdomain.com", "team@yourdomain.com"],
+      "Metrics": ["Cost analysis", "Performance trends", "Storage optimization recommendations"]
+    }
+  }
+}
