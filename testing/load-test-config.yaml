@@ -1,0 +1,116 @@
+# Load Testing Configuration for S3 Website
+# Use with tools like Artillery.js, K6, or Apache Bench
+
+# Artillery.js Configuration
+config:
+  target: 'https://your-s3-website.s3-website-us-east-1.amazonaws.com'
+  phases:
+    # Warm-up phase
+    - duration: 30
+      arrivalRate: 5
+      name: "Warm-up"
+    
+    # Ramp-up phase
+    - duration: 60
+      arrivalRate: 10
+      rampTo: 50
+      name: "Ramp-up"
+    
+    # Sustained load
+    - duration: 120
+      arrivalRate: 50
+      name: "Sustained load"
+    
+    # Peak load test
+    - duration: 60
+      arrivalRate: 100
+      name: "Peak load"
+
+# Test scenarios
+scenarios:
+  # Homepage load test
+  - name: "Homepage Performance"
+    weight: 70
+    flow:
+      - get:
+          url: "/"
+          expect:
+            - statusCode: 200
+            - hasHeader: 'content-type'
+          capture:
+            - header: 'x-amz-request-id'
+              as: 'requestId'
+
+  # Static assets test
+  - name: "Static Assets"
+    weight: 20
+    flow:
+      - get:
+          url: "/{{ $randomString() }}.jpg"
+          expect:
+            - statusCode: [200, 404]
+
+  # Error page test
+  - name: "Error Page Handling"
+    weight: 10
+    flow:
+      - get:
+          url: "/nonexistent-page"
+          expect:
+            - statusCode: 404
+            - contentType: text/html
+
+# Performance thresholds
+expectations:
+  # Response time should be under 2 seconds for 95% of requests
+  - http.response_time:
+      p95: 2000
+      p99: 5000
+  
+  # Success rate should be above 99%
+  - http.response_time.ok: '>99%'
+  
+  # Error rate should be minimal
+  - http.codes.404: '<1%'
+
+# K6 Alternative Configuration
+k6_config: |
+  import http from 'k6/http';
+  import { check, sleep } from 'k6';
+  
+  export let options = {
+    stages: [
+      { duration: '30s', target: 10 },  // Warm up
+      { duration: '1m', target: 50 },   // Ramp up
+      { duration: '2m', target: 50 },   // Stay at 50 users
+      { duration: '1m', target: 100 },  // Peak load
+      { duration: '30s', target: 0 },   // Cool down
+    ],
+    thresholds: {
+      http_req_duration: ['p(95)<2000'],
+      http_req_failed: ['rate<0.01'],
+    },
+  };
+  
+  export default function() {
+    let response = http.get('https://your-s3-website.s3-website-us-east-1.amazonaws.com');
+    check(response, {
+      'status is 200': (r) => r.status === 200,
+      'response time < 2s': (r) => r.timings.duration < 2000,
+    });
+    sleep(1);
+  }
+
+# Apache Bench Commands
+apache_bench_commands:
+  basic_test: "ab -n 1000 -c 10 https://your-s3-website.s3-website-us-east-1.amazonaws.com/"
+  stress_test: "ab -n 5000 -c 50 -t 60 https://your-s3-website.s3-website-us-east-1.amazonaws.com/"
+  keep_alive_test: "ab -n 1000 -c 10 -k https://your-s3-website.s3-website-us-east-1.amazonaws.com/"
+
+# Test execution notes
+execution_notes:
+  - "Update target URL before running tests"
+  - "Run tests from multiple geographic locations if possible"
+  - "Monitor CloudWatch metrics during load tests"
+  - "Ensure S3 request rate limits are considered"
+  - "Test during different times of day for realistic results"
