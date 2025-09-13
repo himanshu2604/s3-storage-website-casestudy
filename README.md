@@ -9,6 +9,15 @@
 ## 📋 Project Overview
 
 **XYZ Corporation S3 Storage & Website Infrastructure** - A comprehensive AWS S3 implementation demonstrating unlimited cloud storage, lifecycle management, version control, and static website hosting with custom error handling.
+### 🌐 Live Website Demo
+**🔗 Website URL**: [http://s3-casestudy-harry-v26.s3-website.ap-south-1.amazonaws.com/](http://s3-casestudy-harry-v26.s3-website.ap-south-1.amazonaws.com/)
+
+> **📝 Note**: This is the live website hosted as part of this case study. If the link doesn't work with HTTPS, please change the URL to HTTP (as S3 static website hosting uses HTTP by default).
+
+### 📖 Complete Technical Blog
+**📝 Read the Full Implementation Guide**: [From Zero to Professional: Building Unlimited Cloud Storage + Website Hosting with AWS S3](https://dev.to/cloudwithharry_v26/from-zero-to-professional-building-unlimited-cloud-storage-website-hosting-with-aws-s3-i66)
+
+> **💡 Deep Dive**: This comprehensive blog post covers the complete implementation journey, challenges faced, solutions implemented, and lessons learned with live examples and code snippets.
 
 ### 🎯 Key Achievements
 - ✅ **Unlimited Cloud Storage** with global accessibility
