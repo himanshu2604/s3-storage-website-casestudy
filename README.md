@@ -29,17 +29,17 @@
 
 ## 🔗 Infrastructure as Code Collection
 
-> **📋 Complete Automation Scripts**: [GitHub Gists Collection](https://gist.github.com/[your-gist-collection-id].git)
+> **📋 Complete Automation Scripts**: [GitHub Gists Collection](https://gist.github.com/d8e66284c277ce8e2226c48ad4a770e3.git)
 
 While this case study demonstrates hands-on AWS Console implementation for learning purposes, I've also created production-ready automation scripts that achieve the same results programmatically:
 
 | Script | Purpose | Gist Link |
 |--------|---------|-----------|
-| 🪣 **S3 Bucket Automation** | Bucket creation & configuration | [View Script](https://gist.github.com/[bucket-automation-id].git) |
-| 🔄 **Lifecycle Management** | Automated lifecycle policies | [View Script](https://gist.github.com/[lifecycle-automation-id].git) |
-| 📚 **Versioning Setup** | Version control automation | [View Script](https://gist.github.com/[versioning-automation-id].git) |
-| 🌐 **Website Hosting** | Static website deployment | [View Script](https://gist.github.com/[website-automation-id].git) |
-| 🎯 **DNS & Domain Setup** | Route 53 configuration | [View Script](https://gist.github.com/[dns-automation-id].git) |
+| 🪣 **S3 Bucket Automation** | Bucket creation & configuration | [View Script](https://gist.github.com/b2fd807b404e258d5e42fb0e71b6db86.git) |
+| 🔄 **Lifecycle Management** | Automated lifecycle policies | [View Script](https://gist.github.com/427bb9109c7623edff2f9dea16b25089.git) |
+| 📚 **Versioning Setup** | Version control automation | [View Script](https://gist.github.com/7a88c94d3096dd1fdf14e4dfa909eb3e.git) |
+| 🌐 **Website Hosting** | Static website deployment | [View Script](https://gist.github.com/2a9984ce5ad7e365f0dae1c7bf03b16d.git) |
+| 🎯 **DNS & Domain Setup** | Route 53 configuration | [View Script](https://gist.github.com/ec67a7c627c619c87e68311b71eb334d.git) |
 
 **Why Both Approaches?**
 - **Manual Implementation** (This Repo) → Understanding AWS S3 services deeply
